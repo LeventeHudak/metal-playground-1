@@ -1,4 +1,4 @@
-# metal-metalPlayground
+# metal-playground
 
 My awesome Metal.js project
 

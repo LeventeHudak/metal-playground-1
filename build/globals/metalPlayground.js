@@ -12457,14 +12457,16 @@ babelHelpers;
       ie_close('li');
       ie_open('li');
       ie_open('a', null, null, 'class', 'control-menu-icon', 'data-onclick', opt_data.onPlayingClickHandler, 'href', '#');
-      ie_void('span', null, null, 'class', 'icon-stop metal-playground-play-stop');
+      ie_void('span', null, null, 'class', (opt_data.isPlaying ? 'icon-stop' : 'icon-play') + ' metal-playground-play-stop');
       ie_close('a');
       ie_close('li');
-      ie_open('li');
-      ie_open('a', null, null, 'class', 'control-menu-icon');
-      ie_void('div', null, null, 'class', 'bounceball metal-playground-loading-indicator');
-      ie_close('a');
-      ie_close('li');
+      if (opt_data.isPlaying) {
+        ie_open('li');
+        ie_open('a', null, null, 'class', 'control-menu-icon');
+        ie_void('div', null, null, 'class', 'bounceball metal-playground-loading-indicator');
+        ie_close('a');
+        ie_close('li');
+      }
       ie_open('li');
       ie_open('a', null, null, 'class', 'control-menu-icon', 'href', 'index.html');
       ie_void('span', null, null, 'class', 'icon-refresh metal-playground-reset');
@@ -12510,26 +12512,26 @@ babelHelpers;
       ie_open('div', null, null, 'class', 'sidebar-body');
       ie_open('div', null, null, 'class', 'row row-spacing');
       ie_open('div', null, null, 'class', 'col-md-12');
-      var current_componentList49 = opt_data.componentList;
-      var current_componentListLen49 = current_componentList49.length;
-      for (var current_componentIndex49 = 0; current_componentIndex49 < current_componentListLen49; current_componentIndex49++) {
-        var current_componentData49 = current_componentList49[current_componentIndex49];
+      var current_componentList56 = opt_data.componentList;
+      var current_componentListLen56 = current_componentList56.length;
+      for (var current_componentIndex56 = 0; current_componentIndex56 < current_componentListLen56; current_componentIndex56++) {
+        var current_componentData56 = current_componentList56[current_componentIndex56];
         ie_open('div');
         ie_open('blockquote', null, null, 'class', 'blockquote-sm blockquote-primary');
-        ie_open('a', null, null, 'class', 'control-menu-icon', 'href', '#', 'data-onclick', opt_data.onComponentClickHandler, 'data-componentindex', current_componentIndex49);
-        itext((goog.asserts.assert(current_componentData49.NAME != null), current_componentData49.NAME));
+        ie_open('a', null, null, 'class', 'control-menu-icon', 'href', '#', 'data-onclick', opt_data.onComponentClickHandler, 'data-componentindex', current_componentIndex56);
+        itext((goog.asserts.assert(current_componentData56.NAME != null), current_componentData56.NAME));
         ie_close('a');
         ie_close('blockquote');
-        if (current_componentData49.savedStates != null) {
+        if (current_componentData56.savedStates != null) {
           ie_open('ul', null, null, 'class', 'metal-playground-state-list');
-          var stateNameList45 = current_componentData49.savedStateNames;
-          var stateNameListLen45 = stateNameList45.length;
-          for (var stateNameIndex45 = 0; stateNameIndex45 < stateNameListLen45; stateNameIndex45++) {
-            var stateNameData45 = stateNameList45[stateNameIndex45];
+          var stateNameList52 = current_componentData56.savedStateNames;
+          var stateNameListLen52 = stateNameList52.length;
+          for (var stateNameIndex52 = 0; stateNameIndex52 < stateNameListLen52; stateNameIndex52++) {
+            var stateNameData52 = stateNameList52[stateNameIndex52];
             ie_open('li');
             ie_open('blockquote', null, null, 'class', 'blockquote-sm blockquote-main');
-            ie_open('a', null, null, 'class', 'control-menu-icon', 'href', '#', 'data-onclick', opt_data.onComponentStateClickHandler, 'data-componentindex', current_componentIndex49, 'data-stateindex', stateNameIndex45);
-            itext((goog.asserts.assert(stateNameData45 != null), stateNameData45));
+            ie_open('a', null, null, 'class', 'control-menu-icon', 'href', '#', 'data-onclick', opt_data.onComponentStateClickHandler, 'data-componentindex', current_componentIndex56, 'data-stateindex', stateNameIndex52);
+            itext((goog.asserts.assert(stateNameData52 != null), stateNameData52));
             ie_close('a');
             ie_close('blockquote');
             ie_close('li');
@@ -12576,10 +12578,10 @@ babelHelpers;
       $renderColumns.soyTemplateName = 'MetalPlayground.renderColumns';
     }
 
-    exports.render.params = ["componentList", "currentComponent", "onComponentClickHandler", "onComponentStateClickHandler", "onPlayingClickHandler", "onSaveCurrentStateClickHandler"];
-    exports.render.types = { "componentList": "any", "currentComponent": "any", "onComponentClickHandler": "any", "onComponentStateClickHandler": "any", "onPlayingClickHandler": "any", "onSaveCurrentStateClickHandler": "any" };
-    exports.renderNavigation.params = ["currentComponent", "onPlayingClickHandler", "onSaveCurrentStateClickHandler"];
-    exports.renderNavigation.types = { "currentComponent": "any", "onPlayingClickHandler": "any", "onSaveCurrentStateClickHandler": "any" };
+    exports.render.params = ["componentList", "currentComponent", "isPlaying", "onComponentClickHandler", "onComponentStateClickHandler", "onPlayingClickHandler", "onSaveCurrentStateClickHandler"];
+    exports.render.types = { "componentList": "any", "currentComponent": "any", "isPlaying": "any", "onComponentClickHandler": "any", "onComponentStateClickHandler": "any", "onPlayingClickHandler": "any", "onSaveCurrentStateClickHandler": "any" };
+    exports.renderNavigation.params = ["currentComponent", "isPlaying", "onPlayingClickHandler", "onSaveCurrentStateClickHandler"];
+    exports.renderNavigation.types = { "currentComponent": "any", "isPlaying": "any", "onPlayingClickHandler": "any", "onSaveCurrentStateClickHandler": "any" };
     exports.renderSidenav.params = ["componentList", "onComponentClickHandler", "onComponentStateClickHandler"];
     exports.renderSidenav.types = { "componentList": "any", "onComponentClickHandler": "any", "onComponentStateClickHandler": "any" };
     templates = exports;
@@ -13796,6 +13798,8 @@ babelHelpers;
 		MetalPlayground.prototype.onComponentClickHandler = function onComponentClickHandler(event) {
 			event.preventDefault();
 
+			this.isPlaying = true;
+
 			if (core.isDefAndNotNull(this.currentComponent)) {
 				this.currentComponent.dispose();
 				this.currentComponent = {};
@@ -13829,9 +13833,6 @@ babelHelpers;
 			event.preventDefault();
 
 			this.isPlaying = !this.isPlaying;
-
-			dom.toggleClasses(this.element.querySelector('.metal-playground-play-stop'), 'icon-play icon-stop');
-			dom.toggleClasses(this.element.querySelector('.metal-playground-loading-indicator'), 'hide bounceball');
 		};
 
 		MetalPlayground.prototype.onSaveCurrentStateClickHandler = function onSaveCurrentStateClickHandler() {
@@ -13902,7 +13903,7 @@ babelHelpers;
 				var renderedComponentNode = this.element.querySelector('.metal-playground-rendered-component');
 				renderedComponentNode.innerHTML = '';
 
-				if (core.isDefAndNotNull(this.currentComponent.element)) {
+				if (core.isDefAndNotNull(this.currentComponent) && core.isDefAndNotNull(this.currentComponent.element)) {
 					renderedComponentNode.appendChild(this.currentComponent.element);
 				}
 			}
