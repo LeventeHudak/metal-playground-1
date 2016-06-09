@@ -48,6 +48,8 @@ class MetalPlayground extends Component {
 	onComponentClickHandler(event) {
 		event.preventDefault();
 
+		this.isPlaying = true;
+
 		if (core.isDefAndNotNull(this.currentComponent)) {
 			this.currentComponent.dispose();
 			this.currentComponent = {};
@@ -81,9 +83,6 @@ class MetalPlayground extends Component {
 		event.preventDefault();
 
 		this.isPlaying = !this.isPlaying;
-
-		dom.toggleClasses(this.element.querySelector('.metal-playground-play-stop'), 'icon-play icon-stop');
-		dom.toggleClasses(this.element.querySelector('.metal-playground-loading-indicator'), 'hide bounceball');
 	}
 
 	onSaveCurrentStateClickHandler() {
@@ -156,7 +155,7 @@ class MetalPlayground extends Component {
 			let renderedComponentNode = this.element.querySelector('.metal-playground-rendered-component');
 			renderedComponentNode.innerHTML = '';
 
-			if (core.isDefAndNotNull(this.currentComponent.element)) {
+			if (core.isDefAndNotNull(this.currentComponent) && core.isDefAndNotNull(this.currentComponent.element)) {
 				renderedComponentNode.appendChild(this.currentComponent.element);
 			}
 		}

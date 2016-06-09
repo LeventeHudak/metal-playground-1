@@ -4,6 +4,7 @@
  * This renders the component's whole content.
  * @param componentList
  * @param currentComponent
+ * @param isPlaying
  * @param onComponentClickHandler
  * @param onComponentStateClickHandler
  * @param onPlayingClickHandler
@@ -13,6 +14,7 @@
 	<div class="metal-playground">
 		{call .renderNavigation}
 			{param currentComponent: $currentComponent /}
+			{param isPlaying: $isPlaying /}
 			{param onPlayingClickHandler: $onPlayingClickHandler /}
 			{param onSaveCurrentStateClickHandler: $onSaveCurrentStateClickHandler /}
 		{/call}
@@ -28,6 +30,7 @@
 /**
  * This renders the components navigation.
  * @param currentComponent
+ * @param isPlaying
  * @param onPlayingClickHandler
  * @param onSaveCurrentStateClickHandler
  */
@@ -42,14 +45,16 @@
 				<li class="active"><a href="#">Metal Playground</a></li>
 				<li>
 					<a class="control-menu-icon" data-onclick="{$onPlayingClickHandler}" href="#">
-						<span class="icon-stop metal-playground-play-stop"></span>
+						<span class="{$isPlaying ? 'icon-stop' : 'icon-play'} metal-playground-play-stop"></span>
 					</a>
 				</li>
-				<li>
-					<a class="control-menu-icon">
-						<div class="bounceball metal-playground-loading-indicator"></div>
-					</a>
-				</li>
+				{if $isPlaying}
+					<li>
+						<a class="control-menu-icon">
+							<div class="bounceball metal-playground-loading-indicator"></div>
+						</a>
+					</li>
+				{/if}
 				<li>
 					<a class="control-menu-icon" href="index.html">
 						<span class="icon-refresh metal-playground-reset"></span>
